@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @MapperScan("com.neuedu.hisweb.mapper")
+//
 public class HisWebApplication {
 
     public static void main(String[] args) {
