@@ -52,6 +52,8 @@
                   <div>家庭住址:{{scope.row.addr}} </div>
                   <div>渠道:{{scope.row.channelName}} </div>
                   <div>注册时间:{{scope.row.createdate}} </div>
+                  <div>关联用户:{{scope.row.customerName}} </div>
+                  <div>关联用户与本人关系:{{scope.row.relationshipName}} </div>
                 </el-card>
               </template>
             </el-table-column>
