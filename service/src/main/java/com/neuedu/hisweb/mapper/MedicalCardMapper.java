@@ -25,6 +25,7 @@ public interface MedicalCardMapper extends BaseMapper<MedicalCard> {
                      cardtype,ct.ConstantName cardtypeName,cardNo,
                      customerId,c.realName customerName,
                      relationship,cr.ConstantName relationshipName,
+                     (select ConstantName from constantitem where mc.gender = constantitem.ID) as genderName,
                      mc.createdate,mc.channel,cc.ConstantName channelName
                      from MedicalCard mc
                      inner join constantitem ct on mc.cardtype=ct.id
@@ -40,11 +41,17 @@ public interface MedicalCardMapper extends BaseMapper<MedicalCard> {
                                 or cardNo like CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%')
                                 or mc.phone like CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
                         </if>
+                        <if test='gender != null and gender!=""'>
+                            and mc.gender = #{gender}
+                        </if>
+                        <if test='cardType != null and cardType!=""'>
+                            and mc.cardType = #{cardType}
+                        </if>
                     </where>
                     order by mc.createdate desc
             </script>
             """)
-    Page<MedicalCardVo> selectPage(Page<MedicalCardVo> page, String keyword);
+    Page<MedicalCardVo> selectPage(Page<MedicalCardVo> page, String keyword,Integer gender,Integer cardType);
 
 
     @Select("""

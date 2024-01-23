@@ -19,9 +19,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class MedicalCardServiceImpl extends ServiceImpl<MedicalCardMapper, MedicalCard> implements IMedicalCardService {
 
+    /**
+     * 改成能够增加性别或者是卡类型来做筛选
+     * */
     @Override
-    public Page<MedicalCardVo> selectPage(Page<MedicalCardVo> page, String keyword) {
-        return  getBaseMapper().selectPage(page,keyword);
+    public Page<MedicalCardVo> selectPage(Page<MedicalCardVo> page, String keyword,Integer gender,Integer cardType) {
+        return  getBaseMapper().selectPage(page,keyword,gender,cardType);
     }
 
     @Override

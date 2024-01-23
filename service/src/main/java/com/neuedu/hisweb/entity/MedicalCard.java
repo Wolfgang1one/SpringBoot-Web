@@ -27,7 +27,7 @@ public class MedicalCard implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String realname;
+    private String realName;
 
     private Integer gender;
 
@@ -39,7 +39,7 @@ public class MedicalCard implements Serializable {
 
     private String addr;
 
-    private Integer cardtype;
+    private Integer cardType;
 
     private String cardNo;
 
@@ -60,12 +60,12 @@ public class MedicalCard implements Serializable {
     public String toString() {
         return "Medicalcard{" +
         "id=" + id +
-        ", realname=" + realname +
+        ", realname=" + realName +
         ", gender=" + gender +
         ", idnumber=" + idnumber +
         ", birthdate=" + birthdate +
         ", phone=" + phone +
-        ", cardtype=" + cardtype +
+        ", cardtype=" + cardType +
         ", cardNo=" + cardNo +
         ", customerId=" + customerId +
         ", relationship=" + relationship +

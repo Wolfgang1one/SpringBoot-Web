@@ -14,7 +14,7 @@ import com.neuedu.hisweb.entity.vo.MedicalCardVo;
  * @since 2023-08-09
  */
 public interface IMedicalCardService extends IService<MedicalCard> {
-    Page<MedicalCardVo> selectPage(Page<MedicalCardVo> page, String keyword);
+    Page<MedicalCardVo> selectPage(Page<MedicalCardVo> page, String keyword,Integer gender,Integer cardType);
 
     Integer getMaxCardNo();
 }
