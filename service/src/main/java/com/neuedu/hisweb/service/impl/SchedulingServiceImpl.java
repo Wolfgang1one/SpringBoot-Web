@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.neuedu.hisweb.entity.Scheduling;
 import com.neuedu.hisweb.entity.vo.SchedulingVo;
 import com.neuedu.hisweb.mapper.SchedulingMapper;
+import com.neuedu.hisweb.mapper.UserMapper;
 import com.neuedu.hisweb.service.ISchedulingService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,9 +29,16 @@ import java.util.Map;
 @Service
 public class SchedulingServiceImpl extends ServiceImpl<SchedulingMapper, Scheduling> implements ISchedulingService {
 
+    @Autowired
+    private SchedulingMapper schedulingMapper;
+
     @Override
     public Page<SchedulingVo> selectPage(Page<SchedulingVo> page, String keyword, String deptId, String userId,String regLevel,String noon,String start, String end) {
         return baseMapper.selectPage(page,keyword,deptId,userId,regLevel,noon,start,end);
+    }
+
+    public SchedulingVo selectPlan(String deptId,String userId,String noon,String start,String end){
+        return schedulingMapper.selectPlan(deptId,userId,noon,start,end);
     }
 
     @Override

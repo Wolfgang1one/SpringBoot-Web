@@ -6,6 +6,7 @@ import com.neuedu.hisweb.entity.vo.UserVo;
 import com.neuedu.hisweb.mapper.UserMapper;
 import com.neuedu.hisweb.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,9 +20,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public Page<UserVo> selectPage(Page<UserVo> page, String keyword, String userType, String dept, String docType) {
         return getBaseMapper().selectPage(page,keyword,userType,dept,docType);
+    }
+
+    public UserVo selectById(Integer uid){
+        return userMapper.selectByID(uid);
     }
 
     @Override

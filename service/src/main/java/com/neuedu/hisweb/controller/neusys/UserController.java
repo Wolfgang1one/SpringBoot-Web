@@ -105,5 +105,20 @@ public class UserController {
         }
         else return new JsonResult<>("删除失败");
     }
+
+    @GetMapping("/getById")
+    public JsonResult<UserVo> getById(@RequestParam(value = "id",required = true) Integer id){
+        UserVo userVo = iUserService.selectById(id);
+        if(userVo!=null){
+            JsonResult<UserVo> jsonResult= new JsonResult<>();
+            jsonResult.setResult(true);
+            jsonResult.setData(userVo);
+            return jsonResult;
+        }
+        else return new JsonResult<>("查找失败");
+    }
+
+
+
 }
 

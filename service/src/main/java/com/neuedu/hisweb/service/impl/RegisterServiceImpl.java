@@ -113,7 +113,12 @@ public class RegisterServiceImpl extends ServiceImpl<RegisterMapper, Register> i
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         String date_str= df.format(new Date());
 
+        System.out.println("--------------");
         RegisterVo register=param.getRegisterVo();
+        System.out.println(param.getRegisterVo());
+        System.out.println(register.getId());
+        System.out.println("--------------");
+
 
         //退发票
         LambdaQueryWrapper<Invoice> queryWrapper=new LambdaQueryWrapper<>();
@@ -130,6 +135,15 @@ public class RegisterServiceImpl extends ServiceImpl<RegisterMapper, Register> i
         invoice.setInvoiceNum(oldInvoice.getInvoiceNum());
         invoice.setFeeType(register.getSettleID());
         invoice.setBack(String.valueOf(oldInvoice.getId()));
+
+        System.out.println("--------------");
+        System.out.println(invoice);
+        System.out.println(param.getUserVo());
+        System.out.println(param);
+        System.out.println("--------------");
+
+
+
         int rs= invoiceMapper.insert(invoice);
 
         //新增操作记录
@@ -159,6 +173,7 @@ public class RegisterServiceImpl extends ServiceImpl<RegisterMapper, Register> i
         rs+=schedulingMapper.updateByBackRegister(register.getVisitDate(),register.getNoon(),register.getUserID());
 
         return rs == 4;
+//        return false;
     }
 
 

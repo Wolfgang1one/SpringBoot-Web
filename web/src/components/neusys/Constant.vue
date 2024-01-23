@@ -247,7 +247,6 @@ function del(id){
 					
 				ElMessageBox.alert(resp.data.errMsg, '提示',{})
 			}
-			
 		})
 	})
 }

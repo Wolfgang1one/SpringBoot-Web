@@ -62,6 +62,38 @@ public interface SchedulingMapper extends BaseMapper<Scheduling> {
     Page<SchedulingVo> selectPage(Page<SchedulingVo> page, String keyword, String deptId,String userId,String regLevel,String noon,String start, String end);
 
 
+    @Select("""
+            <script>
+               select s.id,schedDate,s.DeptId,deptName,s.UserId,realname,
+                      rl.id registlevelId,rl.registName,rl.registFee,
+                      rl.RegistQuota,noon,s.regNum,
+                      ruleID,ruleName,week,num
+               from scheduling s
+                   inner join department d on s.DeptID=d.ID
+                   inner join user u on s.UserID=u.ID
+                   inner join registlevel  rl on rl.id=u.RegistLeID
+                   inner join rule r on s.RuleID=r.ID
+                    <where>
+                        and s.delMark=1
+                        <if test='deptId != null and deptId!=""'>
+                            and s.deptId=#{deptId}
+                        </if>
+                        <if test='userId != null and userId!=""'>
+                            and s.userId=#{userId}
+                        </if>
+                         <if test='noon != null and noon!=""'>
+                           and noon=#{noon}
+                        </if>
+                        <if test='start != null and start!="" and end != null and end!=""'  >
+                            and `schedDate` between date(#{start}) and date(#{end})
+                        </if>
+                    </where>
+                    order by schedDate desc
+            </script>
+            """)
+    SchedulingVo selectPlan(String deptId,String userId,String noon,String start,String end);
+
+
     @Update("update scheduling set regNum=regNum+1 where id=#{id}")
     int updateByRegister(Integer id);
 

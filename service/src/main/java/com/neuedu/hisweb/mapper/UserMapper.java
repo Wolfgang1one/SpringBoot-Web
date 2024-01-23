@@ -53,6 +53,25 @@ public interface UserMapper extends BaseMapper<User> {
             """)
     Page<UserVo> selectPage(Page<UserVo> page, String keyword, String userType, String dept, String docType);
 
+
+    @Select("""
+        <script>
+            select u.id,username,realname,usetype,ci1.ConstantName usetypeName,
+                        doctitleId,ci.ConstantName AS docTitle,
+                        isscheduling,deptid,d.DeptName dept,
+                        registLeID,r.RegistName registLe
+            from
+                USER u
+                INNER JOIN constantitem ci1 ON u.usetype = ci1.ID
+                INNER JOIN constantitem ci ON u.DocTitleID = ci.ID
+                INNER JOIN department d ON u.DeptID = d.ID
+                INNER JOIN registlevel r ON u.RegistLeID = r.ID
+            where
+                u.id=#{uid}
+        </script>
+        """)
+    UserVo selectByID(Integer uid);
+
     @Update("update user set password=#{newPwd,jdbcType=VARCHAR} where id=#{id} and  password=#{oldPwd,jdbcType=VARCHAR}")
     boolean updatePwd(Integer uid,String oldPwd,String newPwd);
 

@@ -6,6 +6,7 @@ import com.neuedu.hisweb.entity.JsonResult;
 import com.neuedu.hisweb.entity.Scheduling;
 
 import com.neuedu.hisweb.entity.vo.SchedulingVo;
+import com.neuedu.hisweb.entity.vo.UserVo;
 import com.neuedu.hisweb.service.ISchedulingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +47,25 @@ public class SchedulingController {
         return new JsonResult<Page>(page);
     }
 
+    @GetMapping("/getPlan")
+    public JsonResult<SchedulingVo> getPlan(
+                                            @RequestParam(value = "deptId",required = false) String deptId,
+                                            @RequestParam(value = "userId",required = false) String userId,
+                                            @RequestParam(value = "noon",required = false) String noon,
+                                            @RequestParam(value = "start",required = false) String start,
+                                            @RequestParam(value = "end",required = false) String end
+
+                                            ){
+        SchedulingVo schedulingVo = iService.selectPlan(deptId,userId,noon,start,end);
+        if(schedulingVo!=null){
+            JsonResult<SchedulingVo> jsonResult= new JsonResult<>();
+            jsonResult.setResult(true);
+            jsonResult.setData(schedulingVo);
+            return jsonResult;
+        }
+        else return new JsonResult<>("查找计划失败");
+    }
+
     @PostMapping("/add")
     public JsonResult<Scheduling> addScheduling(@RequestBody Collection<Scheduling> schedulings){
         try {
@@ -75,6 +95,8 @@ public class SchedulingController {
         }
         else return new JsonResult<>("删除失败");
     }
+
+
 
 }
 

@@ -16,5 +16,7 @@ import com.neuedu.hisweb.entity.vo.UserVo;
 public interface IUserService extends IService<User> {
     Page<UserVo> selectPage(Page<UserVo> page, String keyword, String userType, String dept, String docType);
 
+    UserVo selectById(Integer uid);
+
     boolean updatePwd(Integer uid,String oldPwd,String newPwd);
 }

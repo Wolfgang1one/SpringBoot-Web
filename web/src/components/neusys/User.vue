@@ -422,6 +422,17 @@ function del(id){
 	.then(() => {
 		var formData = new FormData();
 		formData.append("id", id);
+    console.log("formData");
+    console.log("formData");
+    console.log("formData");
+    console.log("formData");
+    console.log("formData");
+
+    console.log(formData);
+    for(let [key,value] of formData.entries()){
+      console.log(key +":"+ value)
+    }
+
 		postReq("/user/del",formData).then(resp=>{
 			if(resp.data.result){
 				loadData(data.value.current)
